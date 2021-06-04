@@ -5,13 +5,6 @@ import matplotlib.pyplot as plt
 
 is_downsample = True
 
-
-K = np.array([[1.53653164e+03, 0.00000000e+00, 1.04318348e+03],
-              [0.00000000e+00, 1.54022929e+03, 5.67584058e+02],
-              [0.00000000e+00, 0.00000000e+00, 1.00000000e+00]])
-dist_coeffs = np.array([0.2897652,  -2.45780323, 0.01189844, 0.02099917, 6.97784126])
-
-
 # === ref image
 ref_im = cv2.imread("louvre.jpg")
 ref_im_rgb = cv2.cvtColor(ref_im, cv2.COLOR_BGR2RGB)
@@ -100,7 +93,8 @@ while True:
         continue
 
     # ======== do prespective warping
-    mask_warped = cv2.warpPerspective(np.ones(ref_im.shape, dtype=np.uint8), H,
+    # TODO: can be done with only one warpPerspective
+	mask_warped = cv2.warpPerspective(np.ones(ref_im.shape, dtype=np.uint8), H,
                                       (frame_rgb.shape[1], frame_rgb.shape[0]))
     mask_warped_bin = mask_warped > 0
     im_warped = cv2.warpPerspective(mona_rgb_resize, H, (frame_rgb.shape[1], frame_rgb.shape[0]))
